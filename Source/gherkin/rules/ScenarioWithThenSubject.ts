@@ -1,8 +1,9 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-export class ScenarioWithThenSubject {
+import { SubjectContent, EmptySubjectContent } from './index';
+export class ScenarioWithThenSubject<TContent extends SubjectContent = EmptySubjectContent> {
 
-    constructor(readonly scenario: string, readonly then: string) {
+    constructor(readonly content: TContent, readonly scenario: string, readonly then: string) {
     }
 }
