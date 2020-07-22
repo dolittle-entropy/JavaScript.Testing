@@ -1,7 +1,7 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { BrokenRule } from './BrokenRule';
+import { BrokenRule } from './index';
 
 export class ThenResult {
     readonly then!: string;

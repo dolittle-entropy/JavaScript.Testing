@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { BrokenRule } from '@dolittle/rules';
-import { Then } from './Then';
+import { Then } from './index';
 
 export class ThenResult {
     readonly then: Then;

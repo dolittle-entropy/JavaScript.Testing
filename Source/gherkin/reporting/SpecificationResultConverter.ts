@@ -1,10 +1,8 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { SpecificationResult as ReportingSpecificationResult } from './SpecificationResult';
-import { SpecificationResult } from '../../gherkin';
-import { ISpecificationResultConverter } from './ISpecificationResultConverter';
-import { ISpecificationConverter } from './ISpecificationConverter';
+import { SpecificationResult as ReportingSpecificationResult, ISpecificationResultConverter, ISpecificationConverter } from './index';
+import { SpecificationResult } from '../index';
 
 export class SpecificationResultConverter implements ISpecificationResultConverter {
     constructor(private _specificationConverter: ISpecificationConverter) {

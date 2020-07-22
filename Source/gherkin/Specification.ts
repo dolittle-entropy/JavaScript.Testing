@@ -1,10 +1,7 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { Given } from './Given';
-import { FeatureDefinition } from './FeatureDefinition';
-import { Then } from './Then';
-import { BecauseOf } from './BecauseOf';
+import { Given, FeatureDefinition, BecauseOf, Then } from './index';
 
 export class Specification {
     static empty: Specification = {

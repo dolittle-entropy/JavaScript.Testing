@@ -2,35 +2,26 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import asHumanReadable from './asHumanReadable';
-import { ScenarioEnvironment } from './ScenarioEnvironment';
-import { Specification } from './Specification';
-import { ScenarioFor } from './ScenarioFor';
-import { ScenarioContext } from './ScenarioContext';
-import { ScenarioEnvironmentDefinition } from './ScenarioEnvironmentDefinition';
+import { ScenarioEnvironment, ScenarioContext, ScenarioFor, Specification, emptyScenarioEnvironment, no_scenario } from './index';
 
-class no_context extends ScenarioContext {
-    async describe(environment: ScenarioEnvironmentDefinition): Promise<void> {
-    }
-}
-class no_scenario extends ScenarioFor<no_context> {
-    for = no_context;
-}
 
 export class Scenario {
 
-    static none: Scenario = new Scenario(new no_scenario(), ScenarioEnvironment.empty, Specification.empty);
+    static none: Scenario = new Scenario(new no_scenario(), emptyScenarioEnvironment, Specification.empty);
 
-    readonly name: string;
-    readonly contextName: string;
-    readonly instance: ScenarioFor<ScenarioContext>;
-    readonly environment: ScenarioEnvironment;
-    readonly specification: Specification;
+    private _name: string;
+    private _contextName: string;
 
-    constructor(instance: ScenarioFor<ScenarioContext>, environment: ScenarioEnvironment, specification: Specification) {
-        this.name = asHumanReadable(instance.constructor.name);
-        this.contextName = asHumanReadable(instance.for.name);
-        this.instance = instance;
-        this.environment = environment;
-        this.specification = specification;
+    constructor(readonly instance: ScenarioFor<ScenarioContext>, readonly environment: ScenarioEnvironment, readonly specification: Specification) {
+        this._name = asHumanReadable(instance.constructor.name);
+        this._contextName = asHumanReadable(instance.for.name);
+    }
+
+    get name() {
+        return this._name;
+    }
+
+    get contextName() {
+        return this._contextName;
     }
 }

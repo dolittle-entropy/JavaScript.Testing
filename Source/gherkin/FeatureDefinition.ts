@@ -16,11 +16,6 @@ export class FeatureDefinition {
      */
     static readonly unspecified: FeatureDefinition = { name: 'Feature not specified', description: '' };
 
-    readonly name: string;
-    readonly description: string;
-
-    constructor(name: string, description: string = '') {
-        this.name = name;
-        this.description = description;
+    constructor(readonly name: string, readonly description: string = '') {
     }
 }

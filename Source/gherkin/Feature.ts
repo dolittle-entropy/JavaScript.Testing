@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 /**
- * Represents a decorator for feature.
+ * Represents a decorator for a feature.
  *
  * @export
  * @param {string} name The name of the feature.

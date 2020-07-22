@@ -1,16 +1,18 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { ISpecificationBuilder } from './ISpecificationBuilder';
-import { Specification } from './Specification';
-import { FeatureDefinition } from './FeatureDefinition';
-import { BecauseOf } from './BecauseOf';
-import { Then } from './Then';
-import { MissingWhenMethod } from './MissingWhenMethod';
-import { MultipleWhenMethods } from './MultipleWhenMethods';
-import { ThenIsNotAMethod } from './ThenIsNotAMethod';
-import { IContextDescriptorFor } from './IContextDescriptorFor';
 import asHumanReadable from './asHumanReadable';
+import {
+    ISpecificationBuilder,
+    IContextDescriptorFor,
+    Specification,
+    FeatureDefinition,
+    BecauseOf,
+    Then,
+    MissingWhenMethod,
+    MultipleWhenMethods,
+    ThenIsNotAMethod
+} from './index';
 
 const when_prefix = 'when_';
 const then_prefix = 'then_';
@@ -37,7 +39,7 @@ export class SpecificationBuilder implements ISpecificationBuilder {
         }
         const keys = this.getKeysFor(description);
         const specification: Specification = {
-            feature: feature,
+            feature,
             givens: [],
             when: this.getWhenFrom(description, keys),
             ands: this.getAndsFrom(description, keys),

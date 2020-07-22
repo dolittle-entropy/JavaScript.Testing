@@ -1,13 +1,11 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { Scenario as ReportingScenario } from './Scenario';
-import { Scenario } from '../../gherkin';
-import { IScenarioConverter } from './IScenarioConverter';
-import { ISpecificationConverter } from './ISpecificationConverter';
+import { Scenario as ReportingScenario, IScenarioConverter, ISpecificationConverter } from './index';
+import { Scenario } from '../index';
 
 export class ScenarioConverter implements IScenarioConverter {
-    constructor(readonly _specificationConverter: ISpecificationConverter) {
+    constructor(private readonly _specificationConverter: ISpecificationConverter) {
     }
 
     convert(input: Scenario): ReportingScenario {

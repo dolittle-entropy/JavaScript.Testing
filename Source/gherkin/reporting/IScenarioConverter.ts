@@ -1,8 +1,8 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { Scenario as ReportingScenario } from './Scenario';
-import { Scenario } from '../../gherkin';
+import { Scenario as ReportingScenario } from './index';
+import { Scenario } from '../index';
 
 /**
  * Defines a system that can convert a {Scenario} to a {ReportingScenario}.

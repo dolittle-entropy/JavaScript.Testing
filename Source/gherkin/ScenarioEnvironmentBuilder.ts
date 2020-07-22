@@ -1,53 +1,37 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { IScenarioEnvironmentBuilder } from './IScenarioEnvironmentBuilder';
-import { ScenarioEnvironmentDefinition } from './ScenarioEnvironmentDefinition';
-import { ScenarioEnvironment } from './ScenarioEnvironment';
-import { IMicroserviceFactory, MicroserviceConfiguration, Microservice } from '../microservices';
-import { IFlightPaths } from '../flights';
-import { ISerializer } from '../ISerializer';
+import { IScenarioEnvironmentBuilder, ScenarioEnvironmentDefinition, ScenarioEnvironment } from './index';
 
-export class ScenarioEnvironmentBuilder implements IScenarioEnvironmentBuilder {
-    constructor(
-        private _flightPaths: IFlightPaths,
-        private _microserviceFactory: IMicroserviceFactory,
-        private _serializer: ISerializer) {
+/**
+ * Represents an abstract implementation of IScenarioEnvironmentBuilder
+ *
+ * @export
+ * @abstract
+ * @class ScenarioEnvironmentBuilder
+ * @implements {IScenarioEnvironmentBuilder<TEnvironment, TDefinition>}
+ * @template TEnvironment
+ * @template TDefinition
+ */
+export abstract class ScenarioEnvironmentBuilder<TEnvironment extends ScenarioEnvironment<TDefinition>, TDefinition extends ScenarioEnvironmentDefinition> implements IScenarioEnvironmentBuilder<TEnvironment, TDefinition> {
 
+    protected environment!: TEnvironment;
+    protected definition!: TDefinition;
+
+    /** @inheritdoc */
+    from(environment: TEnvironment): IScenarioEnvironmentBuilder<TEnvironment, TDefinition> {
+        this.environment = environment;
+        return this;
     }
 
-    async buildFrom(platform: string, definition: ScenarioEnvironmentDefinition): Promise<ScenarioEnvironment> {
-        const microservices: { [key: string]: Microservice } = {};
-
-        const configurations = this.prepareMicroserviceConfigurations(platform, definition);
-        for (const configuration of configurations) {
-            const workingDirectory = this._flightPaths.base;
-            const microservice = await this._microserviceFactory.create(workingDirectory, configuration);
-            microservices[configuration.name] = microservice;
-        }
-
-        return new ScenarioEnvironment(this._flightPaths, definition, microservices, this._serializer);
+    /** @inheritdoc */
+    withDefinition(definition: TDefinition): IScenarioEnvironmentBuilder<TEnvironment, TDefinition> {
+        this.definition = definition;
+        return this;
     }
 
-
-    private prepareMicroserviceConfigurations(platform: string, definition: ScenarioEnvironmentDefinition): MicroserviceConfiguration[] {
-        const microserviceConfigurations: MicroserviceConfiguration[] = [];
-        for (const microserviceDefinition of definition.microservices) {
-            microserviceConfigurations.push(MicroserviceConfiguration.from(platform, microserviceDefinition));
-        }
-
-        for (const consumerDefinition of definition.microservices) {
-            const consumer = microserviceConfigurations.find(_ => _.name === consumerDefinition.name);
-            if (consumer) {
-                for (const producerDefinition of consumerDefinition.producers) {
-                    const producer = microserviceConfigurations.find(_ => _.name === producerDefinition.name);
-                    if (producer) {
-                        consumer.addProducer(producer);
-                    }
-                }
-            }
-        }
-
-        return microserviceConfigurations;
+    /** @inheritdoc */
+    build(): TEnvironment {
+        return this.environment;
     }
 }

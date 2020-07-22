@@ -1,9 +1,8 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { Specification as ReportingSpecification } from './Specification';
-import { Specification } from '../../gherkin';
-import { ISpecificationConverter } from './ISpecificationConverter';
+import { Specification as ReportingSpecification, ISpecificationConverter } from './index';
+import { Specification } from '../index';
 
 export class SpecificationConverter implements ISpecificationConverter {
     convert(input: Specification): ReportingSpecification {

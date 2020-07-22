@@ -2,8 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { RuleBuilder, RuleWithSubjectProvider, IRule } from '@dolittle/rules';
-import { ScenarioWithThenSubjectProvider } from './ScenarioWithThenSubjectProvider';
-import { SpecificationBuilder } from '..';
+import { ScenarioWithThenSubjectProvider } from './index';
+import { SpecificationBuilder } from '../index';
 
 const stackTrace = require('stack-trace');
 
@@ -11,7 +11,7 @@ export class ScenarioRuleBuilder extends RuleBuilder {
     private _then: string;
     private _scenario: string;
 
-    constructor(private _microservice: Microservice, private _rule: IRule) {
+    constructor(private _rule: IRule) {
         super();
 
         this._then = '[unknown]';
@@ -28,6 +28,6 @@ export class ScenarioRuleBuilder extends RuleBuilder {
     }
 
     build(): RuleWithSubjectProvider {
-        return new RuleWithSubjectProvider(this._rule, new ScenarioWithThenSubjectProvider(this._microservice, this._scenario, this._then));
+        return new RuleWithSubjectProvider(this._rule, new ScenarioWithThenSubjectProvider(this._scenario, this._then));
     }
 }

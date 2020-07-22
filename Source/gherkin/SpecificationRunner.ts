@@ -1,14 +1,9 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { Specification } from './Specification';
-import { SpecificationResult } from './SpecificationResult';
-import { ISpecificationRunner } from './ISpecificationRunner';
-import { ScenarioContext } from './ScenarioContext';
-import { ScenarioFor } from './ScenarioFor';
-import { ScenarioWithThenSubject } from 'rules';
-import { ThenResult } from './ThenResult';
 import { BrokenRule } from '@dolittle/rules';
+import { ScenarioWithThenSubject } from './rules';
+import { Specification, ISpecificationRunner, ScenarioContext, ScenarioFor, SpecificationResult, ThenResult, RuleSetEvaluatorForContext } from './index';
 
 export class SpecificationRunner implements ISpecificationRunner {
     async run(scenarioFor: ScenarioFor<ScenarioContext>, specification: Specification): Promise<SpecificationResult> {
@@ -33,25 +28,21 @@ export class SpecificationRunner implements ISpecificationRunner {
 
     private async collectResultsFor(scenarioFor: ScenarioFor<ScenarioContext>, specification: Specification) {
         const thenResults: ThenResult[] = [];
-        if (scenarioFor.context) {
+        if (scenarioFor.context != null) {
             const brokenRulesByThens: {
                 [key: string]: BrokenRule[];
             } = {};
-            const microservices = Object.values(scenarioFor.context.microservices);
-            for (const microservice of microservices) {
-                const brokenRules = await microservice.evaluate();
-                for (const brokenRule of brokenRules) {
-                    const subject = brokenRule.subject as ScenarioWithThenSubject;
-                    let brokenRulesForThen: BrokenRule[];
-                    if (brokenRulesByThens.hasOwnProperty(subject.then)) {
-                        brokenRulesForThen = brokenRulesByThens[subject.then];
-                    }
-                    else {
-                        brokenRulesForThen = [];
-                        brokenRulesByThens[subject.then] = brokenRulesForThen;
-                    }
-                    brokenRulesForThen.push(brokenRule);
+            const brokenRules = await RuleSetEvaluatorForContext.getFor(scenarioFor.context).evaluate();
+            for (const brokenRule of brokenRules) {
+                const subject = brokenRule.subject as ScenarioWithThenSubject;
+                let brokenRulesForThen: BrokenRule[];
+                if (brokenRulesByThens.hasOwnProperty(subject.then)) {
+                    brokenRulesForThen = brokenRulesByThens[subject.then];
+                } else {
+                    brokenRulesForThen = [];
+                    brokenRulesByThens[subject.then] = brokenRulesForThen;
                 }
+                brokenRulesForThen.push(brokenRule);
             }
 
             for (const then of specification.thens) {
