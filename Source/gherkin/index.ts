@@ -29,3 +29,5 @@ export * from './ScenarioResult';
 export * from './SpecificationBuilder';
 export * from './SpecificationResult';
 export * from './SpecificationRunner';
+export * from './rules';
+export * as reporting from './reporting';
