@@ -21,12 +21,7 @@ export abstract class ScenarioEnvironmentBuilder<TEnvironment extends ScenarioEn
     /** @inheritdoc */
     from(environment: TEnvironment): IScenarioEnvironmentBuilder<TEnvironment, TDefinition> {
         this.environment = environment;
-        return this;
-    }
-
-    /** @inheritdoc */
-    withDefinition(definition: TDefinition): IScenarioEnvironmentBuilder<TEnvironment, TDefinition> {
-        this.definition = definition;
+        this.definition = environment.definition;
         return this;
     }
 

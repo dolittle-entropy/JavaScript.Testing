@@ -1,7 +1,7 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { Scenario as ReportingScenario, IScenarioConverter, ISpecificationConverter } from './index';
+import { ReportingScenario, IScenarioConverter, ISpecificationConverter } from './index';
 import { Scenario } from '../index';
 
 export class ScenarioConverter implements IScenarioConverter {
