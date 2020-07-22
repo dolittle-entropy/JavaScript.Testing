@@ -3,7 +3,7 @@
 
 import { BrokenRule } from './index';
 
-export class ThenResult {
+export class ReportingThenResult {
     readonly then!: string;
     readonly brokenRules!: BrokenRule[];
 }

@@ -21,14 +21,6 @@ export interface IScenarioEnvironmentBuilder<TEnvironment extends ScenarioEnviro
     from(environment: TEnvironment): IScenarioEnvironmentBuilder<TEnvironment, TDefinition>;
 
     /**
-     * Start building with definition.
-     *
-     * @param {TDefinition} definition
-     * @returns {IScenarioEnvironmentBuilder<TEnvironment, TDefinition>}
-     */
-    withDefinition(definition: TDefinition): IScenarioEnvironmentBuilder<TEnvironment, TDefinition>;
-
-    /**
      * Builds the ScenarioEnvironment.
      *
      * @returns {TEnvironment}

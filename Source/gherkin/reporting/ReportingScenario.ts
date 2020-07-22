@@ -1,9 +1,10 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { SpecificationResult } from './index';
+import { ReportingSpecification } from './index';
 
-export class ScenarioResult {
+export class ReportingScenario {
     readonly name!: string;
-    readonly result!: SpecificationResult;
+    readonly context!: string;
+    readonly specification!: ReportingSpecification;
 }

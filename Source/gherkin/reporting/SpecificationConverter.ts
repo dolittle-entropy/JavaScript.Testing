@@ -1,7 +1,7 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { Specification as ReportingSpecification, ISpecificationConverter } from './index';
+import { ReportingSpecification, ISpecificationConverter } from './index';
 import { Specification } from '../index';
 
 export class SpecificationConverter implements ISpecificationConverter {
